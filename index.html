@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ho_OSS_2_js</title>
+        <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+            <script>
+                $(document).ready(function(){
+                    $.ajax({
+                        method: "GET",
+                        url: "http://34.64.230.165/version",
+                            success: function (msg) {
+                                document.body.innerHTML = msg;
+                    }
+                    });
+                });
+            </script>
+        </head>
+    <body>
+    </body>
+</html>
