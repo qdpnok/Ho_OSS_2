@@ -9,12 +9,40 @@
                         method: "GET",
                         url: "http://34.64.230.165/version",
                             success: function (msg) {
-                                document.body.innerHTML = msg;
+                                $("h2").text(msg);
                     }
                     });
                 });
             </script>
         </head>
+        <style>
+            .header {
+                display: flex;}
+            #box {
+                width: 400px; height: 400px;
+            }
+            #button {
+                margin-left: 10px;
+                margin-right: 10px;
+                background-color: plum;
+            }
+            #version {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            #name {
+                border:1px solid black;
+                background-color: darkgrey;
+            }
+        </style>
     <body>
+        
+        <div class="header">
+            <h1 id="name">Judge0 IDE</h1>
+            <h2 id="version"></h2>
+            <button id="button" type="button">Run(F9)</button>
+        </div>
+            <input id="box" type="text">
+        
     </body>
 </html>
