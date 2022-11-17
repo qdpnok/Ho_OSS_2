@@ -5,13 +5,35 @@
         <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
             <script>
                 $(document).ready(function(){
+                    var languages;
+                    var default_URL = "http://34.64.99.230/"; //gcp 서버 닫았다가 열면 재설정해주기
+                    var lan_num;
+
                     $.ajax({
                         method: "GET",
-                        url: "http://34.64.230.165/version",
-                            success: function (msg) {
-                                $("h2").text(msg);
+                        url: default_URL + "version",
+                            success: function (version) {
+                                $("h2").text(version);
                     }
                     });
+
+                    $.ajax({
+                        method: "GET",
+                        url: default_URL + "languages/",
+                            success: function (languages) {
+                                var i = 0;
+                                while(languages.length != i-1) {
+                                    $("#list").append("<option>" + languages[i].name + "</option>");
+                                    i++;
+                                }
+                            }
+                    });
+                    //셀렉터 값 선택하면 lan_num에 선택한 언어의 id가 들어갈 수 있도록 시도중
+                    /*$("#list").change(function() {
+                        var value = languages.find($("#list option").index($("#list option:selected")));
+                        lan_num = value.id;
+                        $("div").append("<h3>" + lan_num + "</h3>");
+                    });*/
                 });
             </script>
         </head>
@@ -41,6 +63,7 @@
             <h1 id="name">Judge0 IDE</h1>
             <h2 id="version"></h2>
             <button id="button" type="button">Run(F9)</button>
+            <select id="list"></select>
         </div>
             <input id="box" type="text">
         
