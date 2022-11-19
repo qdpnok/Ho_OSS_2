@@ -5,8 +5,8 @@
         <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
             <script>
                 $(document).ready(function(){
-                    var languages;
                     var default_URL = "http://34.64.99.230/"; //gcp 서버 닫았다가 열면 재설정해주기
+                    var languages;
                     var lan_num;
 
                     $.ajax({
@@ -20,21 +20,44 @@
                     $.ajax({
                         method: "GET",
                         url: default_URL + "languages/",
-                            success: function (languages) {
+                        async:false, //동기 방식으로 지정해서 전역변수에 데이터 값 저장.
+                            success: function (result) {
                                 var i = 0;
+                                languages = result;
                                 while(languages.length != i-1) {
                                     $("#list").append("<option>" + languages[i].name + "</option>");
                                     i++;
                                 }
                             }
                     });
-                    //셀렉터 값 선택하면 lan_num에 선택한 언어의 id가 들어갈 수 있도록 시도중
-                    /*$("#list").change(function() {
-                        var value = languages.find($("#list option").index($("#list option:selected")));
-                        lan_num = value.id;
-                        $("div").append("<h3>" + lan_num + "</h3>");
-                    });*/
+
+                    //셀렉터 값 선택하면 lan_num에 선택한 언어의 id가 들어감.
+                    $("#list").change(function() {
+                        var list_index = $("#list option").index($("#list option:selected"));
+                        lan_num = languages[list_index].id;
+                    });
+
+                    //클릭하면 ajax로 값을 전달하고 바로 받고싶음. 
+                    $("#button").click(function() {
+                        $("body").append("<h3>" + ("#box").val() + "/<h3>");
+                        /*$.ajax({
+                            method: "POST",
+                            url: default_URL + "submissions/",
+                            data: {source_code: $("#box").text(), language_id: lan_num},
+                            success: function (token) {
+                                $.ajax({
+                                    method: "GET",
+                                    url: default_URL + "submissions/" + token,
+                                    async: false,
+                                    success: function (result) {
+                                        $("body").append("<h3>" + result + "</option>");
+                                    }
+                                });
+                            }
+                        });*/
+                    });
                 });
+
             </script>
         </head>
         <style>
@@ -62,7 +85,7 @@
         <div class="header">
             <h1 id="name">Judge0 IDE</h1>
             <h2 id="version"></h2>
-            <button id="button" type="button">Run(F9)</button>
+            <button id="button">Run(F9)</button>
             <select id="list"></select>
         </div>
             <input id="box" type="text">
