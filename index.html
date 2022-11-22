@@ -28,6 +28,7 @@
                                     $("#list").append("<option>" + languages[i].name + "</option>");
                                     i++;
                                 }
+                                lan_num = languages[0].id;
                             }
                     });
 
@@ -39,22 +40,28 @@
 
                     //클릭하면 ajax로 값을 전달하고 바로 받고싶음.
                    $("#button").click(function() {
-                        $("body").append("<h3>" + $("#box").val() + "</h3>");
-                        /*$.ajax({
+                    var sendData = {source_code: $("#box").val(), language_id: lan_num};
+
+                    //alert(JSON.stringify(sendData));
+                        $.ajax({
                             method: "POST",
-                            url: default_URL + "submissions/",
-                            data: {source_code: $("#box").text(), language_id: lan_num},
-                            success: function (token) {
-                                $.ajax({
-                                    method: "GET",
-                                    url: default_URL + "submissions/" + token,
-                                    async: false,
-                                    success: function (result) {
-                                        $("body").append("<h3>" + result + "</option>");
-                                    }
-                                });
+                            url: default_URL + "submissions/?wait=true",
+                            data: sendData,
+                            success: function (result) {
+                                alert(JSON.stringify(result));
+                                if (result.hasOwnProperty("stdout") && result.stdout != null) {
+                                    $("#success").text("Success!");
+                                    $("#output").append(result.stdout);
+                                }
+                                else if (result.error != null) {
+                                    $("#success").append("Error");
+                                    $("#output").append(result.error);
+                                }
+                            },
+                            error:function(request,status,error){
+                             alert("ajax err\n"+"code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                             }
-                        });*/
+                        });
                     });
                 });
 
@@ -85,9 +92,11 @@
         <div class="header">
             <h1 id="name">Judge0 IDE</h1>
             <h2 id="version"></h2>
-            <button type="button" id="button">Run(F9)</button>
+            <button id="button">Run(F9)</button>
             <select id="list"></select>
         </div>
         <textarea id="box"></textarea>
+        <h3 id="success"></h3>
+        <h4 id="output"></h4>
     </body>
 </html>
