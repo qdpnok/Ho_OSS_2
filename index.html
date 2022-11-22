@@ -37,9 +37,9 @@
                         lan_num = languages[list_index].id;
                     });
 
-                    //클릭하면 ajax로 값을 전달하고 바로 받고싶음. 
-                    $("#button").click(function() {
-                        $("body").append("<h3>" + ("#box").val() + "/<h3>");
+                    //클릭하면 ajax로 값을 전달하고 바로 받고싶음.
+                   $("#button").click(function() {
+                        $("body").append("<h3>" + $("#box").val() + "</h3>");
                         /*$.ajax({
                             method: "POST",
                             url: default_URL + "submissions/",
@@ -66,11 +66,11 @@
             #box {
                 width: 400px; height: 400px;
             }
-            #button {
+            /*#button {
                 margin-left: 10px;
                 margin-right: 10px;
                 background-color: plum;
-            }
+            }*/
             #version {
                 margin-left: 10px;
                 margin-right: 10px;
@@ -85,10 +85,13 @@
         <div class="header">
             <h1 id="name">Judge0 IDE</h1>
             <h2 id="version"></h2>
-            <button id="button">Run(F9)</button>
+            <button type="button" id="button">Run(F9)</button>
             <select id="list"></select>
         </div>
-            <input id="box" type="text">
+        <textarea id="box"></textarea>
+        
+
+            
         
     </body>
 </html>
