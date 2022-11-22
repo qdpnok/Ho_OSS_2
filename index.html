@@ -48,7 +48,7 @@
                             url: default_URL + "submissions/?wait=true",
                             data: sendData,
                             success: function (result) {
-                                alert(JSON.stringify(result));
+                                //alert(JSON.stringify(result));
                                 if (result.hasOwnProperty("stdout") && result.stdout != null) {
                                     $("#success").text("Success!");
                                     $("#output").append(result.stdout);
