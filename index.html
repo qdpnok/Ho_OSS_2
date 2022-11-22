@@ -37,9 +37,9 @@
                         lan_num = languages[list_index].id;
                     });
 
-                    //클릭하면 ajax로 값을 전달하고 바로 받고싶음. 
-                    $("#button").click(function() {
-                        $("body").append("<h3>" + ("#box").val() + "/<h3>");
+                    //클릭하면 ajax로 값을 전달하고 바로 받고싶음.
+                   $("#button").click(function() {
+                        $("body").append("<h3>" + $("#box").val() + "</h3>");
                         /*$.ajax({
                             method: "POST",
                             url: default_URL + "submissions/",
@@ -63,32 +63,64 @@
         <style>
             .header {
                 display: flex;}
-            #box {
-                width: 400px; height: 400px;
-            }
-            #button {
-                margin-left: 10px;
-                margin-right: 10px;
-                background-color: plum;
+            #name {
+                border-right:3px solid white;
+                padding: 2%;
+                text-shadow: 5px 5px 10px skyblue;
             }
             #version {
                 margin-left: 10px;
                 margin-right: 10px;
+                margin-top: 3.5%;
+                text-align: center;
             }
-            #name {
-                border:1px solid black;
-                background-color: darkgrey;
+            #button {
+                margin-left: 2%;
+                width: 10%;
+                margin-top: 2%;
+                
+            }
+            #button:active{
+                background-color: rgb(85, 85, 85);
+                color: white;
+            }
+            #list {
+                width: 30%;
+                margin-top: 2%;
+            }
+            #list:hover{
+                background-color: gray;
+                color: azure;
+            }
+            #box {
+                width: 100%;
+                height: 80vh;
+                margin-top: 10px;
+                background-color: rgb(38, 38, 38);
+                color: lightgrey;
+                font-size: 20px;
+            }
+            #box:hover{
+                color: lightgray;
+
+            }
+            hr {
+                border : 3px solid;
+            }
+            body {
+                background-color : black;
+                color : white;
             }
         </style>
     <body>
         
         <div class="header">
-            <h1 id="name">Judge0 IDE</h1>
+            <h1 id="name">Judge0 I:)E</h1>
             <h2 id="version"></h2>
-            <input type="button" value="RUN(F9)" id="button">
             <select id="list"></select>
+            <button type="button" id="button">Run(F9)</button>
         </div>
-            <input id="box" type="text">
-        
+        <hr>
+        <textarea id="box"></textarea>
     </body>
 </html>
