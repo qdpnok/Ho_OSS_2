@@ -9,6 +9,7 @@
                     var languages;
                     var lan_num;
 
+                    //버전 정보를 받아와서 출력
                     $.ajax({
                         method: "GET",
                         url: default_URL + "version",
@@ -17,6 +18,7 @@
                     }
                     });
 
+                    //언어를 리스트에서 저장하고, 언어를 선택할 수 있는 드롭다운 목록 생성
                     $.ajax({
                         method: "GET",
                         url: default_URL + "languages/",
@@ -32,16 +34,18 @@
                             }
                     });
 
+                    //언어 선택
                     //셀렉터 값 선택하면 lan_num에 선택한 언어의 id가 들어감.
                     $("#list").change(function() {
                         var list_index = $("#list option").index($("#list option:selected"));
                         lan_num = languages[list_index].id;
                     });
 
-                    //클릭하면 ajax로 값을 전달하고 바로 받고싶음.
+                    //run 버튼을 클릭하면 코드에 대한 결과값 or 에러 내용 출력
                    $("#button").click(function() {
                     var sendData = {source_code: $("#box").val(), language_id: lan_num};
 
+                    //코드를 전달하고 결과값을 받아와서 출력
                     //alert(JSON.stringify(sendData));
                         $.ajax({
                             method: "POST",
@@ -49,14 +53,12 @@
                             data: sendData,
                             success: function (result) {
                                 if (result.hasOwnProperty("stdout") && result.stdout != null) {
-                                    //$("#success").text("Success!"); //성공시 성공이라고 출력
                                     $("#output").text(result.stdout);
                                 }
                                 else if (result.hasOwnProperty("stderr") && result.stderr != null) {
                                     $("#output").text("Error!\n" + result.stderr);
                                 }
                                 else if (result.error != null) {
-                                    //$("#success").text("Error");
                                     $("#output").text("Error!\n" + result.error);
                                 }
                             },
